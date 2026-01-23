@@ -17,7 +17,7 @@ model = NeuralNetwork(
 )
 
 # train the model
-model.train(X, Y, epochs=2000, batch_size=2)
+model.train(X, Y, epochs=100, batch_size=2) # adjust the batch size and epochs as you wish
 
 # test the model
 print("\nPredictions:")
