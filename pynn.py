@@ -127,8 +127,9 @@ class NeuralNetwork:
                 batch_Y = Y[i:i + batch_size]
 
                 for x, y in zip(batch_X, batch_Y):
-                    preds = self.forward(x)
-                    loss = self.loss_fn.forward(preds, y)
+                    preds = self.forward([x] if isinstance(x, (int, float)) else x)
+                    loss = self.loss_fn.forward([preds] if isinstance(preds, (int, float)) else preds,
+                                                [y] if isinstance(y, (int, float)) else y)
                     total_loss += loss
 
                     grad = self.loss_fn.backward()
