@@ -66,7 +66,7 @@ class ReLU(Layer):
         ]
 
 
-# softmax 
+# Softmax 
 class Softmax(Layer):
     def forward(self, inputs):
         max_val = max(inputs)
@@ -79,3 +79,20 @@ class Softmax(Layer):
         return grad_output  # simplified (paired with CE loss)
 
 
+# cross-entropy for softmax and classification tasks
+class CrossEntropyLoss:
+    def forward(self, predictions, targets):
+        self.predictions = predictions
+        self.targets = targets
+        loss = 0.0
+
+        for i in range(len(targets)):
+            loss -= targets[i] * math.log(predictions[i] + 1e-9)
+
+        return loss
+
+    def backward(self):
+        return [
+            self.predictions[i] - self.targets[i]
+            for i in range(len(self.targets))
+        ]
