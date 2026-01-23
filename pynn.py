@@ -96,3 +96,44 @@ class CrossEntropyLoss:
             self.predictions[i] - self.targets[i]
             for i in range(len(self.targets))
         ]
+
+
+# the complete NN class
+class NeuralNetwork:
+    def __init__(self, layers, lr=0.1):
+        self.layers = layers
+        self.lr = lr
+        self.loss_fn = CrossEntropyLoss()
+
+    def forward(self, x):
+        for layer in self.layers:
+            x = layer.forward(x)
+        return x
+
+    def backward(self, grad):
+        for layer in reversed(self.layers):
+            grad = layer.backward(grad)
+
+    def update(self):
+        for layer in self.layers:
+            layer.update(self.lr)
+
+    def train(self, X, Y, epochs=1000, batch_size=1):
+        for epoch in range(epochs):
+            total_loss = 0.0
+
+            for i in range(0, len(X), batch_size):
+                batch_X = X[i:i + batch_size]
+                batch_Y = Y[i:i + batch_size]
+
+                for x, y in zip(batch_X, batch_Y):
+                    preds = self.forward(x)
+                    loss = self.loss_fn.forward(preds, y)
+                    total_loss += loss
+
+                    grad = self.loss_fn.backward()
+                    self.backward(grad)
+                    self.update()
+
+            if epoch % 10 == 0:
+                print(f"Epoch {epoch}, Loss: {total_loss:.4f}")
