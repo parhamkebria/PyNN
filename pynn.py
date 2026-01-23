@@ -66,3 +66,16 @@ class ReLU(Layer):
         ]
 
 
+# softmax 
+class Softmax(Layer):
+    def forward(self, inputs):
+        max_val = max(inputs)
+        exp_vals = [math.exp(x - max_val) for x in inputs]
+        total = sum(exp_vals)
+        self.outputs = [x / total for x in exp_vals]
+        return self.outputs
+
+    def backward(self, grad_output):
+        return grad_output  # simplified (paired with CE loss)
+
+
