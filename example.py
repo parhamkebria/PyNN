@@ -20,6 +20,7 @@ model = NeuralNetwork(
 X = []
 Y = []
 
+# XOR sample data
 for i in range(60):
     x = random.uniform(0, 3)
     X.append([x])
