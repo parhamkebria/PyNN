@@ -53,4 +53,16 @@ class Dense(Layer):
             self.biases[i] -= lr * self.grad_b[i]
 
 
-#
+# ReLU activation function
+class ReLU(Layer):
+    def forward(self, inputs):
+        self.inputs = inputs
+        return [max(0.0, x) for x in inputs]
+
+    def backward(self, grad_output):
+        return [
+            grad_output[i] if self.inputs[i] > 0 else 0.0
+            for i in range(len(grad_output))
+        ]
+
+
