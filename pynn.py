@@ -136,5 +136,7 @@ class NeuralNetwork:
                     self.backward(grad)
                     self.update()
 
-            if epoch % 10 == 0:
-                print(f"Epoch {epoch}, Loss: {total_loss:.4f}")
+            if epoch == 0 or epoch == epochs - 1: # always print first and last epoch
+                print(f"Epoch {epoch+1}, Loss: {total_loss:.4f}")
+            elif (epoch+1) % 10 == 0:
+                print(f"Epoch {epoch+1}, Loss: {total_loss:.4f}")
