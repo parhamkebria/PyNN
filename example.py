@@ -33,7 +33,7 @@ for i in range(60):
         Y.append([0, 0, 1])
 
 # train the model
-model.train(X, Y, epochs=1000, batch_size=2) # adjust the batch size and epochs as you wish
+model.train(X, Y, epochs=100, batch_size=2) # adjust the batch size and epochs as you wish
 
 # test the model
 print("\nPredictions:")
